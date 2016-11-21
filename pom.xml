@@ -7,8 +7,8 @@
     <artifactId>gs-spring-boot-docker</artifactId>
     <version>0.1.0</version>
     <packaging>jar</packaging>
-    <name>Spring Boot Docker</name>
-    <description>Getting started with Spring Boot and Docker</description>
+    <name>gs-spring-boot-docker</name>
+    <description>Simple application spring boot maven with jenkins and docker</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,36 +18,30 @@
     </parent>
 
     <properties>
-        <docker.image.prefix>springio</docker.image.prefix>
+        <docker.image.prefix>ileossa</docker.image.prefix>
         <java.version>1.8</java.version>
     </properties>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <!-- tag::plugin[] -->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.11</version>
-                <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-            <!-- end::plugin[] -->
-        </plugins>
-    </build>
+	    <plugins>
+	        <plugin>
+	            <groupId>com.spotify</groupId>
+	            <artifactId>docker-maven-plugin</artifactId>
+	            <version>0.4.11</version>
+	            <configuration>
+	                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+	                <dockerDirectory>src/main/docker</dockerDirectory>
+	                <resources>
+	                    <resource>
+	                        <targetPath>/</targetPath>
+	                        <directory>${project.build.directory}</directory>
+	                        <include>${project.build.finalName}.jar</include>
+	                    </resource>
+	                </resources>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	</build>
 
     <dependencies>
         <dependency>
