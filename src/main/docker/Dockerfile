@@ -1,7 +1,5 @@
 FROM frolvlad/alpine-oraclejdk8:slim
 
-EXPOSE 9090
-
 #Install Spring boot artifact
 VOLUME /tmp
 ADD gs-spring-boot-docker-0.1.0.jar app.jar
