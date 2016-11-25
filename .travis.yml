@@ -7,13 +7,14 @@ jdk:
 services:
   - docker
 
-before_install:
-  - docker build -t ileossa/toto .
 
 script:
-  - docker images ileossa/toto
+  - docker build -t ileossa/toto src/main/docker/
 
 after_success:
+  - docker images ileossa/toto
+
+after_script:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push ileossa/toto;
