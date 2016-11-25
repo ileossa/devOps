@@ -9,9 +9,4 @@ services:
 
 
 after_script:
-  - docker build -t ileossa/toto src/main/docker/
-  - docker images
-  - if [ "$TRAVIS_BRANCH" == "travis" ]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push ileossa/toto;
-    fi
+  - mvn package docker:build
