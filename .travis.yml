@@ -8,13 +8,9 @@ services:
   - docker
 
 
-script:
-  - docker build -t ileossa/toto src/main/docker/
-
-after_success:
-  - docker images ileossa/toto
-
 after_script:
+  - docker build -t ileossa/toto src/main/docker/
+  - docker images ileossa/toto
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push ileossa/toto;
