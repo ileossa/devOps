@@ -10,3 +10,6 @@ services:
 
 after_script:
   - mvn package docker:build
+
+notifications:
+  slack: kalgan:2EsGZWU5r9aEvuo93BU71Nn2
