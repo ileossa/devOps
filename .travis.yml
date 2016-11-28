@@ -9,7 +9,13 @@ services:
 
 
 after_script:
-  - mvn package docker:build
+  - mvn package
+  - docker build -t ileossa/gs-spring-boot-docker srv/main/docker
+  - docker images
+  - if [ "$TRAVIS_BRANCH" == "travis" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push ileossa/gs-spring-boot-docker;
+    fi
 
 notifications:
-  slack: kalgan:2EsGZWU5r9aEvuo93BU71Nn2
+  slack: kalgan:2EsGZWU5r9aEvuo93BU71Nn2 #general channel
