@@ -31,6 +31,40 @@
     </dependencies>
 
 
-    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- BUILD PLUGING SPOTIFY FOR DOCKER IMAGE -->
+			<plugin>
+	        	<groupId>com.spotify</groupId>
+	            <artifactId>docker-maven-plugin</artifactId>
+	            <version>0.4.13</version>
+	            <configuration>
+	                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+	                <dockerDirectory>src/main/docker</dockerDirectory>
+	                <resources>
+	                    <resource>
+	                        <targetPath>/</targetPath>
+	                        <directory>${project.build.directory}</directory>
+	                        <include>${project.build.finalName}.jar</include>
+	                    </resource>
+	                </resources>
+	                <!-- use  ~/.docker/config.json , you need run befor maven "docker login" -->
+	                <useConfigFile>true</useConfigFile>
+	                <!-- Push image on repo when project build -->
+	                <!-- <pushImage>true</pushImage> -->
+	                <!-- Overwrite tag at maven build --> 
+	                <forceTags>true</forceTags>
+	                <imageTags>
+						<imageTag>${project.version}</imageTag>
+						<imageTag>latest</imageTag>
+	                </imageTags>
+	            </configuration>
+	        </plugin>
+        </plugins>
+    </build>
 
 </project>

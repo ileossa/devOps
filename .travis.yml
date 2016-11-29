@@ -12,7 +12,8 @@ before_install:
   - echo "Testing docker credentials"
   - docker login -e=$DOCKER_EMAIL -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
   - echo "docker hub credential are working"
-  - docker build -t latest src/main/docker/
+  #- docker build -t latest src/main/docker/
+  - mvn package docker:build -DpushImage=false
 
 script:
   - docker images
