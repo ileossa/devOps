@@ -1,23 +1,26 @@
 sudo: required
 
 language: java
+
 jdk:
   - oraclejdk8
-sudo: true
+
 services:
   - docker
 
+before_install:
+  - echo "Testing docker credentials"
+  - docker login -e=$DOCKER_EMAIL -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+  - echo "docker hub credential are working"
+  - docker build -t ileossa/devOps src/main/docker/
 
-after_script:
-  - ls
-  - cd target
-  - ls
-  - cd ..
-  - mvn package docker:build -DpushImage=false
+script:
   - docker images
+
+after_success:
   - if [ "$TRAVIS_BRANCH" == "travis" ]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push ileossa/gs-spring-boot-docker;
+    docker login -e=$DOCKER_EMAIL -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD;
+    docker push ileossa/devOps;
     fi
 
 notifications:
