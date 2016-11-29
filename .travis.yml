@@ -9,12 +9,11 @@ services:
 
 
 after_script:
-  #- mvn package docker:build
-  - docker build -t ileossa/gs-spring-boot-docker src/main/docker
   - ls
   - cd target
   - ls
   - cd ..
+  - mvn package docker:build
   - docker images
   - if [ "$TRAVIS_BRANCH" == "travis" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
