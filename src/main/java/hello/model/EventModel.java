@@ -1,19 +1,26 @@
-package model;
+package hello.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Created by kevin on 22/11/2016.
  */
-public class Event {
-
+@Entity
+public class EventModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String description;
     private String date;
 
-    protected Event(){
+    protected EventModel(){
     }
 
-    public Event(String date, String name, String description) {
+    public EventModel(String date, String name, String description) {
         this.date = date;
         this.name = name;
         this.description = description;
