@@ -1,5 +1,5 @@
 #!/bin/sh
-IMAGE="ileossa/gs-spring-boot-docker"
+IMAGE="ileossa/fondation"
 docker pull $IMAGE
 STATUS="$(docker pull $IMAGE | grep -w "Image is up to date" | wc -l)"
 echo $STATUS
