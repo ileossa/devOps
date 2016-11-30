@@ -11,8 +11,19 @@ ribbon:
 
 endpoints:
   health:
-    sensitive: false
+    sensitive: true
   restart:
     enabled: true
   shutdown:
     enabled: true
+  jmx:
+    domain: myapp
+    unique-names: true
+  jolokia:
+    enabled: true
+
+jolokia:
+  config:
+    debug: true
+
+
