@@ -18,6 +18,7 @@
         <docker.image.prefix>ileossa</docker.image.prefix>
     </properties>
 
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,6 +37,25 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- ID COMMIT ON TAG DOCKER -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                    <artifactId>git-commit-id-plugin</artifactId>
+                    <version>2.2.1</version>
+                    <executions>
+                        <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                    <dateFormat>yyyyMMdd-HHmmss</dateFormat><!--  human-readable part of the version number -->
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <generateGitPropertiesFile>false</generateGitPropertiesFile><!-- somehow necessary. otherwise the variables are not available in the pom -->
+                </configuration>
             </plugin>
             <!-- BUILD PLUGING SPOTIFY FOR DOCKER IMAGE -->
 			<plugin>
@@ -59,7 +79,7 @@
 	                <!-- Overwrite tag at maven build --> 
 	                <forceTags>true</forceTags>
 	                <imageTags>
-						<imageTag>${project.version}</imageTag>
+						<imageTag>${project.version}-${git.commit.id.abbrev}</imageTag>
 						<imageTag>latest</imageTag>
 	                </imageTags>
 	            </configuration>
